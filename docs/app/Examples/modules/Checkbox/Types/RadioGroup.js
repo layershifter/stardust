@@ -6,10 +6,10 @@ export default class CheckboxRadioGroupExample extends Component {
     return (
       <Form>
         <Form.Field>
-          <Checkbox className='radio' label='Choose this' name='radioGroup' />
+          <Checkbox type='radio' label='Choose this' name='radioGroup' />
         </Form.Field>
         <Form.Field>
-          <Checkbox className='radio' label='Or that' name='radioGroup' />
+          <Checkbox type='radio' label='Or that' name='radioGroup' />
         </Form.Field>
       </Form>
     )
