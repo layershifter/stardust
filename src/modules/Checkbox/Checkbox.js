@@ -1,57 +1,69 @@
-import _ from 'lodash'
+import React, { Component, PropTypes } from 'react'
+import cx from 'classnames'
+
+import AutoControlledComponent from '../../utils/AutoControlledComponent'
 import META from '../../utils/Meta'
 import { getUnhandledProps } from '../../utils/propUtils'
-import React, { Component, PropTypes } from 'react'
-import classNames from 'classnames'
-import $ from 'jquery'
 
-export default class Checkbox extends Component {
+const _meta = {
+  library: META.library.semanticUI,
+  name: 'Checkbox',
+  type: META.type.module,
+  props: {
+    style: [
+      'checkbox',
+      'radio',
+      'slider',
+      'toggle',
+    ],
+    type: [
+      'checkbox',
+      'radio',
+    ],
+  },
+}
+
+/**
+ * All React Checkbox props and capabilities are also supported.
+ */
+export default class Checkbox extends AutoControlledComponent {
   static propTypes = {
-    beforeChecked: PropTypes.func,
-    beforeDeterminate: PropTypes.func,
-    beforeIndeterminate: PropTypes.func,
-    beforeUnchecked: PropTypes.func,
     className: PropTypes.string,
+
+    /** Whether or not checkbox is checked. */
+    checked: PropTypes.bool,
+
+    /** The initial value of checked. */
+    defaultChecked: PropTypes.bool,
+
+    /** Removes padding for a label. Auto applied when there is no label. */
+    fitted: PropTypes.bool,
+
+    /** The text of the associated label element. */
     label: PropTypes.string,
+
+    /** Called when the value of checked changes. */
     onChange: PropTypes.func,
-    onChecked: PropTypes.func,
-    onDeterminate: PropTypes.func,
-    onDisable: PropTypes.func,
-    onEnable: PropTypes.func,
-    onIndeterminate: PropTypes.func,
-    onUnchecked: PropTypes.func,
-    type: PropTypes.string,
+
+    /** Either checkbox, radio, slider, or toggle. Defaults to match type.*/
+    style: PropTypes.oneOf(_meta.props.style),
+
+    /** Controls behavior. Either checkbox or radio. */
+    type: PropTypes.oneOf(_meta.props.type),
   }
 
   static defaultProps = {
     type: 'checkbox',
   }
 
-  componentDidMount() {
-    this.element = $(this.refs.element)
-    this.element.checkbox({
-      onChange: this.props.onChange,
-      onChecked: this.props.onChecked,
-      onIndeterminate: this.props.onIndeterminate,
-      onDeterminate: this.props.onDeterminate,
-      onUnchecked: this.props.onUnchecked,
-      beforeChecked: this.props.beforeChecked,
-      beforeIndeterminate: this.props.beforeIndeterminate,
-      beforeDeterminate: this.props.beforeDeterminate,
-      beforeUnchecked: this.props.beforeUnchecked,
-      onEnable: this.props.onEnable,
-      onDisable: this.props.onDisable,
-    })
-  }
+  static autoControlledProps = [
+    'checked',
+  ]
 
-  componentWillUnmount() {
-    _.invoke(this, 'element.off')
-  }
-
-  static _meta = {
-    library: META.library.semanticUI,
-    name: 'Checkbox',
-    type: META.type.module,
+  handleClick = (e) => {
+    this.trySetState({ checked: !this.state.checked })
+    const { onClick } = this.props
+    if (onClick) onClick(e)
   }
 
   handleChange = (e) => {
@@ -59,29 +71,39 @@ export default class Checkbox extends Component {
     if (onChange) onChange(e)
   }
 
-  plugin(...args) {
-    return this.element.checkbox(...args)
-  }
+  static _meta = _meta
 
   render() {
-    let type = this.props.type
-    if (_.includes(this.props.className, 'radio')) {
-      type = 'radio'
-    }
-    const classes = classNames(
+    const { className, label, style, type } = this.props
+    const { checked } = this.state
+
+    const _style = style || type
+
+    const classes = cx(
       'sd-checkbox',
       'ui',
-      this.props.className,
+      _style !== 'checkbox' && _style,
       // auto apply fitted class to compact white space when there is no label
       // http://semantic-ui.com/modules/checkbox.html#fitted
-      { fitted: !this.props.label },
-      'checkbox'
+      'fitted' && !label,
+      checked && 'checked',
+      'checkbox',
+      className
     )
     const props = getUnhandledProps(Checkbox, this.props)
+
     return (
-      <div className={classes} ref='element'>
-        <input {...props} type={type} onChange={this.handleChange} />
-        <label>{this.props.label}</label>
+      <div className={classes}>
+        <input
+          {...props}
+          type={type}
+          className='hidden'
+          onClick={this.handleClick}
+          onChange={this.handleChange}
+          tabIndex={0}
+          checked={checked}
+        />
+        <label onClick={this.handleClick}>{label}</label>
       </div>
     )
   }
