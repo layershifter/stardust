@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import classNames from 'classnames'
-import $ from 'jquery'
+// import $ from 'jquery'
 import META from '../../utils/Meta'
 import Icon from '../../elements/Icon/Icon'
 
@@ -13,12 +13,12 @@ export default class Message extends Component {
     icon: PropTypes.string,
   }
 
-  componentDidMount() {
-    this.messageElm = $(this.refs.message)
-  }
-
+  // componentDidMount() {
+  //   this.messageElm = $(this.refs.message)
+  // }
+  //
   handleDismiss = e => {
-    this.messageElm.transition('fade')
+    // this.messageElm.transition('fade')
   }
 
   static _meta = {

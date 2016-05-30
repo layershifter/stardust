@@ -41,7 +41,11 @@ export default class AutoControlledComponent extends Component {
       const defaultPropName = getDefaultPropName(prop)
 
       // apply default props if they exist
-      res[prop] = this.props[defaultPropName in this.props ? defaultPropName : prop]
+      if (_.has(this.props, defaultPropName)) {
+        res[prop] = this.props[defaultPropName]
+      } else if (_.has(this.props, prop)) {
+        res[prop] = this.props[prop]
+      }
 
       if (process.env.NODE_ENV !== 'production') {
         const { name } = this.constructor

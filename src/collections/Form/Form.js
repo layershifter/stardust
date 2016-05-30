@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import $ from 'jquery'
+// import $ from 'jquery'
 import React, { Component, PropTypes } from 'react'
 import classNames from 'classnames'
 import META from '../../utils/Meta'
@@ -51,17 +51,17 @@ export default class Form extends Component {
     })
   }
 
-  componentDidMount() {
-    this.refresh()
-  }
+  // componentDidMount() {
+  //   this.refresh()
+  // }
 
-  componentDidUpdate(prevProps, prevState) {
-    this.refresh()
-  }
+  // componentDidUpdate(prevProps, prevState) {
+  //   this.refresh()
+  // }
 
-  componentWillUnmount() {
-    _.invoke(this, 'element.off')
-  }
+  // componentWillUnmount() {
+  //   _.invoke(this, 'element.off')
+  // }
 
   static _meta = {
     library: META.library.semanticUI,
@@ -72,20 +72,20 @@ export default class Form extends Component {
   static Field = FormField
   static Fields = FormFields
 
-  plugin(...args) {
-    return this.element.form(...args)
-  }
+  // plugin(...args) {
+  //   return this.element.form(...args)
+  // }
 
-  refresh() {
-    this.element = $(this.refs.element)
-    this.element.form(_.pick(this.props, [
-      'keyboardShortcuts',
-      // validation
-      'delay', 'duration', 'fields', 'on', 'inline', 'revalidate', 'transition',
-      // callbacks
-      'onValid', 'onInvalid', 'onSuccess', 'onFailure',
-    ]))
-  }
+  // refresh() {
+  //   this.element = $(this.refs.element)
+  //   this.element.form(_.pick(this.props, [
+  //     'keyboardShortcuts',
+  //     // validation
+  //     'delay', 'duration', 'fields', 'on', 'inline', 'revalidate', 'transition',
+  //     // callbacks
+  //     'onValid', 'onInvalid', 'onSuccess', 'onFailure',
+  //   ]))
+  // }
 
   serializeJson = () => {
     const form = this.refs.element

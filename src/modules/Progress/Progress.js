@@ -1,4 +1,4 @@
-import $ from 'jquery'
+// import $ from 'jquery'
 import classNames from 'classnames'
 import React, { Component, PropTypes } from 'react'
 
@@ -35,13 +35,13 @@ export default class Progress extends Component {
     showActivity: false,
   }
 
-  componentDidMount() {
-    this.refresh()
-  }
-
-  componentDidUpdate() {
-    this.refresh()
-  }
+  // componentDidMount() {
+  //   this.refresh()
+  // }
+  //
+  // componentDidUpdate() {
+  //   this.refresh()
+  // }
 
   static _meta = {
     library: META.library.stardust,
@@ -59,29 +59,29 @@ export default class Progress extends Component {
     if (onError) onError(e)
   }
 
-  plugin(...args) {
-    return this.element.progress(...args)
-  }
+  // plugin(...args) {
+  //   return this.element.progress(...args)
+  // }
 
-  refresh() {
-    this.element = $(this.refs.element)
-    this.element.progress({
-      autoSuccess: this.props.autoSuccess,
-      label: this.props.label,
-      limitValues: this.props.limitValues,
-      onActive: this.props.onActive,
-      onChange: this.props.onChange,
-      onError: this.props.onError,
-      onSuccess: this.props.onSuccess,
-      onWarning: this.props.onWarning,
-      percent: this.props.percent,
-      precision: this.props.precision,
-      random: this.props.random,
-      showActivity: this.props.showActivity,
-      total: this.props.total,
-      value: this.props.value,
-    })
-  }
+  // refresh() {
+  //   this.element = $(this.refs.element)
+  //   this.element.progress({
+  //     autoSuccess: this.props.autoSuccess,
+  //     label: this.props.label,
+  //     limitValues: this.props.limitValues,
+  //     onActive: this.props.onActive,
+  //     onChange: this.props.onChange,
+  //     onError: this.props.onError,
+  //     onSuccess: this.props.onSuccess,
+  //     onWarning: this.props.onWarning,
+  //     percent: this.props.percent,
+  //     precision: this.props.precision,
+  //     random: this.props.random,
+  //     showActivity: this.props.showActivity,
+  //     total: this.props.total,
+  //     value: this.props.value,
+  //   })
+  // }
 
   render() {
     const { children, className, onChange, onError, showProgress } = this.props
