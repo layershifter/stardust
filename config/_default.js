@@ -63,12 +63,12 @@ config = {
     'bluebird',
     'classnames',
     'faker',
-    'jquery',
+    // 'jquery',
     'lodash',
     'react',
     'react-dom',
     'react-highlight',
-    'semantic-ui-css/semantic.js',
+    // 'semantic-ui-css/semantic.js',
   ],
   compiler_stats: {
     hash: false,            // the hash of the compilation
